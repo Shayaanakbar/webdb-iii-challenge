@@ -21,8 +21,8 @@ server.use(express.json());
 server.get('/api/cohorts', async (req, res) => {
   // get the roles from the database
   try {
-    const roles = await db('roles'); // all the records from the table
-    res.status(200).json(roles);
+    const cohort = await db('cohorts'); // all the records from the table
+    res.status(200).json(cohort);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -56,7 +56,7 @@ server.post('/api/cohorts', async (req, res) => {
 
     res.status(201).json(cohort);
   } catch (error) {
-    const message = errors[error.errno] || 'We ran into an error';
+    const message = errors[error.err] || 'We ran into an error';
     res.status(500).json({ message, error });
   }
 });
@@ -94,7 +94,7 @@ server.delete('/api/cohorts/:id', async (req, res) => {
   } catch (error) {}
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 server.listen(port, () =>
   console.log(`\n** API running on http://localhost:${port} **\n`)
 );
